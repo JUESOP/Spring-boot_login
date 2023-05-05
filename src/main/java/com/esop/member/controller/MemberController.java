@@ -24,7 +24,7 @@ public class MemberController {
     @PostMapping("/member/save")
     public String save(@ModelAttribute MemberDTO memberDTO) {
         memberSerivce.save(memberDTO);
-        return "index";
+        return "login";
     }
 
 }
