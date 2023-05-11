@@ -9,7 +9,7 @@ import org.springframework.stereotype.Service;
 import java.util.Optional;
 
 @Service
-@RequiredArgsConstructor
+@RequiredArgsConstructor 
 public class MemberSerivce {  //컨트롤러에서 DTO를 가지고 서비스에서 저장을 함, 서비스에서 entity로 변환 후 리포지토리에서 저장함
     private final MemberRepository memberRepository;
     public void save(MemberDTO memberDTO) {
