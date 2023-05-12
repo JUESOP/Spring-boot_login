@@ -6,6 +6,8 @@ import com.esop.member.repository.MemberRepository;
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Service;
 
+import java.util.ArrayList;
+import java.util.List;
 import java.util.Optional;
 
 @Service
@@ -44,5 +46,25 @@ public class MemberSerivce {  //컨트롤러에서 DTO를 가지고 서비스에
 
     public void update(MemberDTO memberDTO) {
         memberRepository.save(MemberEntity.toUpdateMemberEntity(memberDTO));
+    }
+
+    public List<MemberDTO> findAll() {
+        List<MemberEntity> memberEntityList = memberRepository.findAll();
+        //list entity를 list dto로 변환
+        List<MemberDTO> memberDTOList = new ArrayList<>(); //담아갈 객체 만들어줌
+        for (MemberEntity memberEntity : memberEntityList) { //memberEntityList 있는 데이터들을 for문을 돌려 하나하나 memberEntity 변수 여기에 넣어줌
+            memberDTOList.add(MemberDTO.toMemberDTO(memberEntity)); //memberEntity를 dto로 변환 후 빈객체에  넣어줌
+        }
+        return memberDTOList;
+    }
+
+    public MemberDTO findById(Long id) {
+        Optional<MemberEntity> optionalMemberEntity = memberRepository.findById(id);
+        if (optionalMemberEntity.isPresent()) {
+            return MemberDTO.toMemberDTO(optionalMemberEntity.get());
+        } else {
+            return null;
+        }
+
     }
 }
