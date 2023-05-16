@@ -72,4 +72,29 @@ public class MemberController {
         memberSerivce.update(memberDTO);
         return "redirect:/member/" + memberDTO.getId();
     }
+
+    @GetMapping("/member/delete/{id}")
+    public String deleteById(@PathVariable Long id) {
+        memberSerivce.deleteById(id);
+        return "redirect:/member/";
+    }
+
+    //로그아웃
+    @GetMapping("/member/logout")
+    public String logout(HttpSession session) {
+        session.invalidate(); //세션 무효화
+        return "index";
+    }
+
+    @PostMapping("/member/email-check")
+    public @ResponseBody String emailCheck(@RequestParam("memberEmail") String memberEmail) {
+        String checkResult = memberSerivce.emailCheck(memberEmail);
+        return checkResult;
+//        if (checkResult != null) {
+//            return "ok";
+//        } else {
+//            return "no";
+//        }
+    }
+
 }
